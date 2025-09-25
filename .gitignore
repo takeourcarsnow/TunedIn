@@ -1,0 +1,70 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+.pnpm-debug.log
+
+# Next.js build output
+.next/
+out/
+.build/
+
+# Production
+dist/
+
+# Local env files
+.env
+.env.*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs/
+*.log
+logs/**/*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# TypeScript
+*.tsbuildinfo
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Misc caches
+.cache/
+.parcel-cache/
+.turbo/
+
+# ESLint cache
+.eslintcache
+
+# Storybook
+.storybook/
+
+# Generated static files
+public/assets/*.png
+public/assets/*.ico
+
+# Secrets
+*.pem
+
+# Mac filesystem extended attributes
+._*

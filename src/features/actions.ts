@@ -45,6 +45,17 @@ export async function onActionClick(e: MouseEvent, state: any, DB: any, render: 
   const postId = card?.getAttribute('data-post') || null;
   const root = $('#app');
 
+  // Handle link to login/register view
+  if (action === 'go-login') {
+    try {
+      const rootEl = document.getElementById('app') as HTMLElement | null;
+      if (!rootEl) return;
+      const mod = await import('../views/login_view');
+      try { mod.renderLogin(rootEl, DB, render); } catch (e) { /* ignore */ }
+    } catch (e) { /* ignore */ }
+    return;
+  }
+
   if (action === 'like' && postId) {
     if (!state.user) { toast(card || root, 'login to like', true); return; }
     const updated = await DB.toggleLike(postId, state.user.id);

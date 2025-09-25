@@ -19,7 +19,19 @@ export async function renderMain(root: HTMLElement, state: any, DB: any, render:
     grid.appendChild(left); grid.appendChild(right); root.appendChild(grid);
     try { const header = document.querySelector('header[role="banner"]'); if (header && document.querySelector('.wrap')) { document.querySelector('.wrap')!.prepend(header); } } catch {}
     // Minimal: render feed scaffold and a compose/profile placeholders
-    const tagsBox = document.createElement('div'); tagsBox.className = 'box'; tagsBox.id = 'tagsBoxMain'; tagsBox.innerHTML = `<div class="muted small">&gt; tags</div><div id="tags"></div>`;
+    const tagsBox = document.createElement('div'); tagsBox.className = 'box'; tagsBox.id = 'tagsBoxMain';
+    // User/menu bar above tags (ported from unported version)
+    const userMenuHtml = `
+      <div class="user-menu" style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px;">
+        <div class="muted small user-info">user: <span id="userName" class="muted">guest</span></div>
+        <div class="hstack" style="justify-content:flex-end;">
+          <button class="btn menu-btn" data-action="view-profile">[ profile ]</button>
+          <button class="btn menu-btn" data-action="go-login">[ login ]</button>
+          <button class="btn menu-btn" data-action="logout">[ logout ]</button>
+          <button class="btn menu-btn" data-action="help">[ help ]</button>
+        </div>
+      </div>`;
+    tagsBox.innerHTML = userMenuHtml + `<div class="muted small">&gt; tags</div><div id="tags"></div>`;
     const feedBox = document.createElement('div'); feedBox.className = 'box'; feedBox.innerHTML = `<div id="feed"></div><div id="pager" class="hstack" style="justify-content:center; margin-top:8px"></div>`;
   left.appendChild(tagsBox); left.appendChild(feedBox);
   setStateRef(state);
@@ -43,7 +55,19 @@ export async function renderMain(root: HTMLElement, state: any, DB: any, render:
   setStateRef(state);
   const prefs = loadPrefs();
   renderFeed(container.querySelector('#feed') as HTMLElement, container.querySelector('#pager') as HTMLElement, state, DB, prefs as any);
-  const tagsBox = document.createElement('div'); tagsBox.className = 'box'; tagsBox.id = 'tagsBoxMain'; tagsBox.innerHTML = `<div class="muted small">&gt; tags</div><div id="tags"></div>`; root.prepend(tagsBox);
+  const tagsBox = document.createElement('div'); tagsBox.className = 'box'; tagsBox.id = 'tagsBoxMain';
+  tagsBox.innerHTML = `
+    <div class="user-menu" style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px;">
+      <div class="muted small user-info">user: <span id="userName" class="muted">guest</span></div>
+      <div class="hstack" style="justify-content:flex-end;">
+        <button class="btn menu-btn" data-action="view-profile">[ profile ]</button>
+        <button class="btn menu-btn" data-action="go-login">[ login ]</button>
+        <button class="btn menu-btn" data-action="logout">[ logout ]</button>
+        <button class="btn menu-btn" data-action="help">[ help ]</button>
+      </div>
+    </div>
+    <div class="muted small">&gt; tags</div><div id="tags"></div>`;
+  root.prepend(tagsBox);
   renderTags(tagsBox.querySelector('#tags') as HTMLElement, DB, prefs as any);
     // Basic mobile tab bar scaffold
     const oldTabBar = document.querySelector('.mobile-tab-bar'); if (oldTabBar) (oldTabBar as HTMLElement).remove();
@@ -58,6 +82,51 @@ export async function renderMain(root: HTMLElement, state: any, DB: any, render:
   }
 
   renderHeader();
+
+  // Populate username in user menu and wire logout behavior
+  try {
+    const userNameEl = document.getElementById('userName');
+    if (userNameEl) {
+      userNameEl.textContent = state.user ? (state.user.name || 'user') : 'guest';
+    }
+    // Attach simple delegated handler for logout (if using Supabase or local session)
+    document.addEventListener('click', async (e) => {
+      const btn = (e.target as HTMLElement).closest('[data-action]') as HTMLElement | null;
+      if (!btn) return;
+      const action = btn.getAttribute('data-action');
+      if (action === 'logout') {
+        try {
+          // clear client session; rely on existing DB/supabase helpers where applicable
+          try { const dbmod = (window as any).DB; if (dbmod && dbmod.supabase && dbmod.supabase.auth && dbmod.supabase.auth.signOut) { await dbmod.supabase.auth.signOut(); } } catch {}
+          try { const utils = await import('../auth/session'); utils.clearSession(); utils.setGuestMode(true); } catch {}
+          try { const { refreshUser } = await import('../core/app_state'); await refreshUser(); } catch {}
+          try { await (window as any).DB?.refresh(); } catch {}
+          try { if ((window as any).state) (window as any).state.page = 1; } catch {}
+          // re-render main to reflect logged-out state
+          try { const rootEl = document.getElementById('app'); if (rootEl) { renderMain(rootEl, (window as any).state, (window as any).DB, () => renderMain(rootEl, (window as any).state, (window as any).DB, render)); } } catch {}
+        } catch (err) { /* non-fatal */ }
+      }
+    });
+  } catch (e) { /* ignore */ }
+
+  // Ensure the login button opens the login form reliably (direct handler)
+  try {
+    const tagsBoxEl = document.getElementById('tagsBoxMain');
+    const loginBtn = tagsBoxEl?.querySelector('[data-action="go-login"]') as HTMLElement | null;
+    if (loginBtn) {
+      loginBtn.addEventListener('click', async (ev) => {
+        ev.preventDefault();
+        try {
+          const mod = await import('./main_view'); // noop to satisfy bundler? (keeps relative path resolution predictable)
+        } catch {}
+        try {
+          const loginMod = await import('../views/login_view');
+          const rootEl = document.getElementById('app') as HTMLElement | null;
+          if (rootEl) loginMod.renderLogin(rootEl, (window as any).DB, () => renderMain(root, state, (window as any).DB, render));
+        } catch (err) { /* ignore */ }
+      });
+    }
+  } catch (e) { /* ignore */ }
 
   // Event delegation for actions and form submit
   const rootEl = document.getElementById('app');

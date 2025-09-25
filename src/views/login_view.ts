@@ -103,7 +103,12 @@ export function renderLogin(root: HTMLElement, DB: any, render: (...args: any[])
   ($('#showLogin') as HTMLElement).onclick = (e) => { e.preventDefault(); showLoginForm(); };
   ($('#showRegister') as HTMLElement).onclick = (e) => { e.preventDefault(); showRegisterForm(); };
 
-  ($('#guestBtn') as HTMLElement).onclick = () => { setGuestMode(true); wrappedRender(); };
+  ($('#guestBtn') as HTMLElement).onclick = async () => {
+    setGuestMode(true);
+    try { await DB.refresh(); } catch {}
+    try { if ((window as any).state) (window as any).state.page = 1; } catch {}
+    wrappedRender();
+  };
 
   document.getElementById('registerForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
