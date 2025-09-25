@@ -1,0 +1,14 @@
+/* components.css (split) - This file now aggregates smaller component files for clarity.
+  Keep this file referenced by HTML; it will import the per-area CSS partials.
+*/
+@import "./components/utilities.css";
+@import "./components/lyrics-notifications.css";
+@import "./components/leaderboard-overlay.css";
+@import "./components/topbar-user-actions.css";
+@import "./components/posts-actions.css";
+@import "./components/avatars-tags-cloud.css";
+@import "./components/player-spotify.css";
+@import "./components/forms-inputs.css";
+@import "./components/overlay-sheet.css";
+@import "./components/comments-pills.css";
+@import "./components/responsive.css";

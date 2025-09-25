@@ -1,0 +1,9 @@
+/* layout.css (split) - aggregator for layout partials */
+@import "./layout/header.css";
+@import "./layout/marquee.css";
+@import "./layout/containers.css";
+@import "./layout/grid.css";
+@import "./layout/ascii-banner.css";
+@import "./layout/dock.css";
+@import "./layout/topbar.css";
+@import "./layout/responsive-layout.css";

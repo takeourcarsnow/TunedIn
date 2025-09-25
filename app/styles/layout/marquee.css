@@ -1,0 +1,28 @@
+/* Now playing marquee */
+.nowplaying-marquee-wrap {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  height: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nowplaying-marquee {
+  display: inline-block;
+  white-space: nowrap;
+  min-width: 100%;
+  will-change: transform;
+  animation: marquee-scroll 36s linear infinite;
+}
+@keyframes marquee-scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+@media (max-width: 600px) {
+  .nowplaying-marquee { animation-duration: 18s !important; }
+}
+
+.queue-info { width: 100%; display: block; margin-top: 2px; }

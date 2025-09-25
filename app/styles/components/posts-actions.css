@@ -1,0 +1,156 @@
+/* Boxes, posts, actions, likes, sort icons */
+/* Generic “box” container */
+.box {
+  border: 1.5px solid #23272a;
+  padding: 18px 18px 14px 18px;
+  background: rgba(20, 22, 28, 0.88);
+  border-radius: 8px;
+  box-shadow: none;
+  width: 96%;
+  box-sizing: border-box;
+  max-width: 100%;
+  transition: box-shadow 0.18s, background 0.18s;
+  margin-bottom: 22px;
+}
+.box:last-child {
+  margin-bottom: 0;
+}
+
+/* Liquid glass look for overlays (profile/about, modals, etc.) */
+.overlay .box, #profile .box {
+  background: rgba(20, 22, 28, 0.88) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(16px) saturate(180%) contrast(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(180%) contrast(1.1);
+  border-radius: 8px !important;
+  transition: background 0.18s, box-shadow 0.18s;
+  border: 1.5px solid #23272a !important;
+}
+
+/* Post/Card */
+.post {
+  border: 1.5px solid #23272a;
+  box-shadow: none;
+  padding: 18px 18px 14px 18px;
+  margin: 22px auto 28px auto;
+  background: rgba(20, 22, 28, 0.88);
+  border-radius: 8px;
+  transition: box-shadow 0.18s, background 0.18s;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 700px;
+}
+.post .post-title {
+  font-weight: 700;
+  font-size: 1.18em;
+  margin-bottom: 2px;
+}
+.post .post-artist {
+  font-size: 1em;
+  margin-bottom: 6px;
+}
+.post:hover {
+  box-shadow: none;
+  background: rgba(28, 32, 40, 0.92);
+}
+.post .meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+  color: #bfc7d5;
+  font-size: 0.99em;
+}
+.post .meta .dot { opacity: .5; }
+.post .post-tags {
+  margin: 2px 0 8px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.97em;
+}
+
+/* Density toggles */
+:root[data-density="compact"] .post { padding: 10px; }
+:root[data-density="compact"] .box { padding: 10px; }
+:root[data-density="compact"] .actions .btn { padding: 1px 6px; }
+
+/* Actions bar (always horizontal) */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+  width: 100%;
+  overflow-y: hidden;
+}
+.actions > * {
+  flex: 1 1 auto;
+  min-width: 80px;
+  margin: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+  .actions .btn { font-size: 12px; padding: 2px 8px; border-radius: 4px; }
+
+/* Subtle click effect for feed buttons */
+.actions .btn:active,
+.user-action-buttons .btn:active,
+.user-action-buttons .btn-ghost:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 8px #0003;
+  filter: brightness(0.97);
+  transition: transform 0.08s, box-shadow 0.08s, filter 0.08s;
+}
+
+/* Likes micro-animation */
+.like-on { color: var(--like); }
+.like-animate { animation: likePop 0.18s cubic-bezier(0.4,0.2,0.2,1); }
+@keyframes likePop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+/* Sort icon buttons */
+.sort-icons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: 12px;
+}
+.sort-btn {
+  background: none;
+  border: none;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s;
+  display: flex;
+  align-items: center;
+  outline: none;
+}
+.sort-btn.active, .sort-btn:hover {
+  background: none !important;
+  box-shadow: 0 1px 4px #0002;
+}
+.sort-btn:focus { outline: none; }
+.icon-sort-newest::before {
+  content: '\23F3'; /* Unicode for hourglass ⏳ */
+  font-size: 1.2em;
+  color: var(--accent, #2a7fff);
+  background: none !important;
+  border-radius: 0;
+}
+.icon-sort-likes::before {
+  content: '\2665';
+  font-size: 1.2em;
+  color: #e25555;
+}
+.icon-sort-comments::before {
+  content: '\1F4AC';
+  font-size: 1.2em;
+  color: #888;
+  background: none !important;
+  border-radius: 0;
+}

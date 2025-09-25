@@ -1,0 +1,60 @@
+/* Overlay and sheet styles used for modals, help, profile about */
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  background: rgba(0,0,0,.6);
+  overflow: hidden;
+  padding: 2vw;
+}
+.overlay.active { display: flex; }
+.overlay .sheet {
+  width: 100%;
+  max-width: 520px;
+  background: rgba(20, 24, 32, 0.55);
+  border: 1.5px solid #222;
+  border-radius: 18px;
+  padding: 28px 20px 24px 20px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  overflow-y: auto;
+  max-height: 90vh;
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18), 0 1.5px 8px 0 #222;
+  font-size: 1.08em;
+  color: var(--fg);
+  transition: background 0.3s, box-shadow 0.3s;
+  backdrop-filter: blur(16px) saturate(180%) contrast(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(180%) contrast(1.1);
+}
+@media (max-width: 600px) {
+  .overlay .sheet {
+    max-width: 93vw;
+    width: 97vw;
+    min-width: 0;
+    padding: 7px;
+    font-size: 0.95em;
+    border-radius: 10px;
+  }
+  .overlay { padding: 0; }
+}
+
+.post-thumbnail-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.post-thumbnail {
+  max-width: 120px;
+  max-height: 120px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px #0003;
+  background: #181a20;
+  border: 1.5px solid var(--line, #444);
+  display: block;
+}

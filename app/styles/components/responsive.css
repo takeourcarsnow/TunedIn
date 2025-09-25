@@ -1,0 +1,205 @@
+/* Responsive snippets moved here (mobile-specific adjustments) */
+@media (max-width: 600px) {
+  /* Center posts and add horizontal padding for narrow screens.
+     Enforce box-sizing and prevent horizontal overflow by limiting widths
+     and making action buttons stack and stretch. */
+  .box,
+  .post {
+    max-width: 97vw;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 8px;
+    padding-right: 8px;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  /* Make meta and tag lists wrap cleanly */
+  .post .meta,
+  .post .post-tags {
+    flex-wrap: wrap !important;
+    gap: 6px;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  /* Stack action buttons vertically and ensure they don't force horizontal scroll */
+  .post .actions {
+    flex-direction: column;
+    gap: 7px;
+    width: 100%;
+    align-items: stretch;
+    overflow-x: hidden; /* prevent wide children from producing horizontal scroll */
+    overflow-y: visible;
+  }
+  .post .actions > * {
+    width: 100% !important;
+    min-width: 0 !important; /* allow buttons to shrink to container width */
+    max-width: 100% !important;
+    margin-bottom: 6px;
+    box-sizing: border-box;
+  }
+
+  /* Ensure thumbnails and images inside posts are responsive */
+  .post-thumbnail, .post img, .box img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  #mobile-notification-dot {
+    display: inline-block !important;
+    margin: 0px auto 0 auto !important;
+    opacity: 0.35 !important;
+    width: 18px !important;
+    height: 18px !important;
+    border-radius: 50% !important;
+    animation: notif-dot-pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes notif-dot-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(108, 207, 255, 0.18); transform: scale(1); }
+    50% { box-shadow: 0 0 0 6px rgba(108, 207, 255, 0.10); transform: scale(1.08); }
+    100% { box-shadow: 0 0 0 0 rgba(108, 207, 255, 0.18); transform: scale(1); }
+  }
+
+  /* Additional safety: prevent horizontal overflow coming from outer containers */
+  .wrap, .feed {
+    overflow-x: hidden;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+
+  /* Reduce outer spacing for posts on very small screens */
+  .post {
+    margin: 12px 0 !important;
+    padding: var(--space-2) !important;
+    max-width: 97vw !important;
+  }
+  .box { padding: var(--space-2) !important; }
+
+  /* Make sure small inline elements (buttons, pills) can shrink */
+  .actions .btn, .post .post-tags .tag {
+    min-width: 0 !important;
+    white-space: normal !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .leaderboard-box {
+    padding: 4vw 2vw 2vw 2vw;
+    max-width: 98vw;
+    font-size: 0.97em;
+  }
+  .enhanced-leaderboard {
+    max-width: 100vw;
+    font-size: 0.97em;
+  }
+}
+
+@media (max-width: 600px) {
+  .spotify-note {
+    flex-direction: column;
+    align-items: center;
+  }
+  .spotify-note-actions .spotify-open {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .spotify-note-body { width: 100%; }
+  .spotify-note-text { text-align: center; }
+}
+
+@media (max-width: 600px) {
+  .player {
+    padding-bottom: 38px;
+    min-height: 160px;
+    pointer-events: auto !important;
+  }
+  .player.audio-only {
+    padding-bottom: 0 !important;
+    min-height: unset !important;
+    height: auto !important;
+    margin-bottom: 0 !important;
+    overflow: visible !important;
+  }
+  .yt {
+  min-height: 140px !important;
+  padding-bottom: 0px !important;
+  aspect-ratio: unset !important;
+  height: 0px !important; /* Fixed comment syntax */
+    box-sizing: border-box;
+  }
+  .player iframe.yt {
+  min-height: 220px !important;
+  height: 540px !important;
+    padding-bottom: 38px !important;
+    aspect-ratio: unset !important;
+    box-sizing: border-box;
+  }
+} /* Ensure proper closing of @media block */
+
+@media (max-width: 600px) {
+  .yt {
+    aspect-ratio: 16/9 !important;
+    height: auto !important;
+    min-height: unset !important;
+    padding-bottom: unset !important;
+  }
+  .player iframe.yt {
+    aspect-ratio: 16/9 !important;
+    height: auto !important;
+    min-height: unset !important;
+    padding-bottom: unset !important;
+  }
+}
+
+@media (min-width: 601px) {
+  /* Override inline min-height from providers.js and keep responsive aspect ratio */
+  .player iframe.yt,
+  .yt {
+    min-height: 280px !important;
+    max-height: 480px;
+    height: auto !important;
+    aspect-ratio: 16/9;
+  }
+  /* Slightly reduce padding on the player container for a tighter look */
+  .player { padding: 4px; }
+}
+
+/* Small feed header mobile reflow */
+@media (max-width: 600px) {
+  .feed-header-bar {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 6px !important;
+    text-align: center;
+  }
+  .feed-header-bar .hstack {
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    width: 100%;
+  }
+  .feed-header-bar .sort-icons {
+    margin-left: 0;
+    margin-top: 4px;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+/* Topbar responsive duplication (kept for safety) */
+@media (max-width: 900px) {
+  .topbar-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .topbar #search {
+    width: 100%;
+    max-width: 100vw;
+    min-width: 0;
+  }
+}

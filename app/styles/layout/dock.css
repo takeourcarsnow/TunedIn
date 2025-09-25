@@ -1,0 +1,29 @@
+/* Top Dock/Notice */
+.dock {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Very high z-index to ensure the docked player stays above embeds, iframes, and overlays */
+  z-index: 30000 !important;
+  background: linear-gradient(0deg, rgba(11,13,16,0.98) 80%, rgba(11,13,16,0.95) 100%), var(--bg);
+  border-top: 1px solid var(--line);
+  padding: 10px 12px 8px 12px;
+  margin: 0;
+  box-shadow: 0 -2px 12px #0004;
+  width: 100vw;
+  max-width: 100vw;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .dock { bottom: 56px !important; padding-bottom: 8px !important; }
+}
+
+.dock .hstack {
+  flex-wrap: nowrap !important;
+  flex-direction: row !important;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+}

@@ -1,0 +1,118 @@
+/* Comments, pills, storage meter, misc small components */
+.comment-box {
+  display: none;
+  margin-top: 6px;
+}
+.comment-box.active {
+  display: block;
+}
+.comment {
+  padding: 8px 0 8px 0;
+  border-top: 1px solid #23272a;
+  background: rgba(20, 24, 32, 0.38);
+  border-radius: 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+/* Pills/outline */
+.pill { border: 1px dashed var(--line); padding: 3px 8px; border-radius: 999px; }
+.highlight { outline: 2px dotted var(--acc); outline-offset: 2px; }
+
+/* Storage meter */
+.meter { height: 6px; background: #0e1116; border: 1px dashed var(--line); border-radius: 999px; overflow: hidden; }
+.meter > span { display: block; height: 100%; background: var(--acc); width: 0; }
+
+/* Popup onboarding nowrap */
+.popup-onboarding .popup-nowrap {
+  white-space: nowrap !important;
+}
+
+/* Comment delete confirm popup (reused styles) */
+.delete-post-confirm,
+.comment-delete-confirm {
+  background: rgba(20, 24, 32, 0.55);
+  color: #fff;
+  border: 1.5px solid #222;
+  border-radius: 14px;
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18), 0 1.5px 8px 0 #222;
+  padding: 8px 14px 7px 14px;
+  font-size: 0.98em;
+  min-width: 180px;
+  max-width: 96vw;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: fadein 0.18s;
+  transition: background 0.3s, box-shadow 0.3s, opacity 0.18s;
+  backdrop-filter: blur(16px) saturate(180%) contrast(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(180%) contrast(1.1);
+}
+.comment-delete-confirm {
+  position: absolute;
+}
+.comment-delete-confirm.fadeout {
+  animation: fadeout 0.18s;
+  opacity: 0;
+}
+.comment-delete-confirm .confirm-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.comment-delete-confirm .btn {
+  margin-left: 4px;
+  padding: 2px 8px;
+  font-size: 0.95em;
+}
+.comment-delete-confirm .btn-danger {
+  background: var(--danger);
+  color: #fff;
+  border: none;
+}
+
+/* Extra force: Hide a.tag-sort-link.active::after with max specificity */
+a.tag-sort-link.active::after,
+a.tag-sort-link:active::after,
+a.tag-sort-link:focus::after,
+a.tag-sort-link:hover::after {
+  display: none !important;
+  opacity: 0 !important;
+  background: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  content: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+/* Force hide the a.tag-sort-link active underline */
+a.tag-sort-link:active::after {
+  display: none !important;
+  opacity: 0 !important;
+}
+/* Force hide the tag-sort-link active underline */
+.tag-sort-link:active::after {
+  display: none !important;
+  opacity: 0 !important;
+}
+/* Force hide the tag-sort-link hover/focus/active underline */
+.tag-sort-link:hover::after {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+/* Hide any number input spinner arrows or overlays in tag sort UI (fix for unwanted spin buttons) */
+.tag-sort-ui *::-webkit-inner-spin-button,
+.tag-sort-ui *::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  margin: 0 !important;
+  display: none !important;
+}
+.tag-sort-ui *::-moz-inner-spin-button,
+.tag-sort-ui *::-moz-outer-spin-button {
+  -moz-appearance: none !important;
+  appearance: none !important;
+  margin: 0 !important;
+  display: none !important;
+}

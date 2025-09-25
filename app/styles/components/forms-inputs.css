@@ -1,0 +1,109 @@
+/* Forms, custom file inputs, tag-sort link fixes */
+/* Custom file input for post upload */
+.custom-file-input-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.custom-file-input {
+  opacity: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.custom-file-label {
+  display: inline-block;
+  background: #181a1b;
+  color: #bfc7d5;
+  padding: 5px 14px;
+  border-radius: 4px;
+  font-size: 0.98em;
+  font-weight: 400;
+  border: 1px solid #23272a;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border 0.15s;
+  box-shadow: none;
+}
+.custom-file-label:hover, .custom-file-label:focus {
+  background: #23272a;
+  color: #fff;
+  border-color: #2a7fff;
+}
+/* Remove glowing border on file input focus */
+.custom-file-input:focus + .custom-file-label {
+  outline: none;
+}
+/* Hide any pseudo-element arrows on tag sort links (fix for unwanted up/down arrows) */
+.tag-sort-link::before,
+.tag-sort-link::after {
+  display: none !important;
+}
+/* Hide any number input spinner arrows or overlays in tag sort UI (fix for unwanted spin buttons) */
+.tag-sort-ui *::-webkit-inner-spin-button,
+.tag-sort-ui *::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  margin: 0 !important;
+  display: none !important;
+}
+.tag-sort-ui *::-moz-inner-spin-button,
+.tag-sort-ui *::-moz-outer-spin-button {
+  -moz-appearance: none !important;
+  appearance: none !important;
+  margin: 0 !important;
+  display: none !important;
+}
+
+/* Tag sort link colors: default to white, active to accent */
+.tag-sort-ui a.tag-sort-link {
+  color: #fff !important;
+  font-weight: 400 !important;
+  opacity: 0.95;
+}
+.tag-sort-ui a.tag-sort-link.active,
+.tag-sort-ui a.tag-sort-link[aria-pressed="true"] {
+  color: var(--acc, #ff6b6b) !important;
+  font-weight: 600 !important;
+}
+
+/* Custom file input for profile */
+.custom-file-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  width: 100%;
+}
+.custom-file-input {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  cursor: pointer;
+}
+.custom-file-input:focus + label {
+  outline: 2px solid var(--acc, #2a7fff);
+}
+/* Make avatar upload button as wide as about textarea */
+#avatarFileLabel {
+  width: 100%;
+  min-width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  display: inline-block;
+  text-align: center;
+}
+#avatarFileName {
+  flex: 0 0 auto;
+  align-self: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 50%;
+}

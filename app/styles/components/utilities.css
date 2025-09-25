@@ -1,0 +1,37 @@
+/* Utilities and global overrides extracted from components.css */
+/* Ensure dock and its buttons are always interactive, even if inside .rate-limit-blur */
+.rate-limit-blur .dock, .rate-limit-blur .dock * {
+  pointer-events: auto !important;
+}
+/* Subtle blur for compose inputs when on rate limit */
+.rate-limit-blur input,
+.rate-limit-blur textarea,
+.rate-limit-blur select,
+.rate-limit-blur button,
+.rate-limit-blur .custom-file-label,
+.rate-limit-blur #bodyCounter,
+.rate-limit-blur #lyricsCounter,
+.rate-limit-blur #captchaBox {
+  filter: blur(2px) brightness(0.95) grayscale(0.1);
+  pointer-events: none;
+  transition: filter 0.2s;
+}
+
+/* Hide all spin buttons globally (fix for unwanted spinner artifacts) */
+*::-webkit-inner-spin-button,
+*::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  margin: 0 !important;
+  display: none !important;
+}
+
+/* Always hide on desktop */
+@media (min-width: 601px) {
+  #mobile-notification-dot {
+    display: none !important;
+  }
+  #mobile-notification-dot + .notification-popup-panel {
+    display: none !important;
+  }
+}

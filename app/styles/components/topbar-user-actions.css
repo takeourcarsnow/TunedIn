@@ -1,0 +1,247 @@
+/* Topbar, pills, search, and user actions */
+/* Fix: Prevent global input/button style from breaking topbar buttons */
+.topbar .btn, .topbar .pill {
+  width: auto !important;
+  max-width: none !important;
+  padding: 5px 14px !important;
+  font-size: 1rem !important;
+  overflow: visible !important;
+  resize: none !important;
+}
+
+/* Unify topbar pill, search, and button sizing/alignment */
+.topbar .pill,
+.topbar #search,
+.topbar .btn {
+  height: 38px;
+  min-width: 90px;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  vertical-align: middle;
+  line-height: 1.2;
+}
+.topbar #search {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+/* Improved topbar pill and button appearance */
+.topbar .pill {
+  border-radius: 6px !important;
+  border: 1.5px solid var(--line2, #444) !important;
+  padding: 5px 14px !important;
+  background: var(--bg2, #181a20);
+  font-weight: 500;
+  color: var(--fg, #eaeaea);
+  letter-spacing: 0.01em;
+  transition: background 0.18s, border-color 0.18s;
+}
+.topbar .pill:hover, .topbar .pill:focus {
+  background: var(--bg3, #23262e);
+  border-color: var(--acc, #2a7fff);
+  outline: none;
+}
+.topbar .btn {
+  border-radius: 6px;
+  border: 1.5px solid var(--line2, #444);
+  background: var(--bg2, #181a20);
+  color: var(--fg, #eaeaea);
+  font-weight: 500;
+  padding: 5px 18px;
+  margin-left: 12px;
+  letter-spacing: 0.01em;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+  box-shadow: none;
+}
+.topbar .btn:hover, .topbar .btn:focus {
+  background: var(--bg3, #23262e);
+  border-color: var(--acc, #2a7fff);
+  color: var(--acc, #2a7fff);
+  outline: none;
+}
+/* Remove pill effect from topbar pills */
+.topbar .pill {
+  border-radius: 6px !important;
+  border: 1px solid var(--line) !important;
+}
+.topbar-posts .pill::-webkit-inner-spin-button,
+.topbar-posts .pill::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  display: none !important;
+}
+.topbar-posts .pill {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+/* --- Improved topbar layout for desktop (JS class version) --- */
+.topbar-toolbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: nowrap;
+}
+.topbar-posts {
+  flex: 0 0 auto;
+}
+.topbar-search {
+  flex: 1 1 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 120px;
+}
+.topbar-search #search {
+  width: 120px;
+  min-width: 0;
+  max-width: 320px;
+  transition: width 0.32s cubic-bezier(0.4,0.2,0.2,1), box-shadow 0.18s;
+  box-shadow: none;
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 1em;
+  color: var(--fg);
+  outline: none;
+}
+.topbar-search #search:focus {
+  width: 320px;
+  box-shadow: 0 2px 12px #0002;
+  background: var(--bg3);
+}
+.user-actions-container {
+  margin-left: 0.5em;
+}
+@media (max-width: 900px) {
+  .topbar-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .topbar-search {
+    width: 100%;
+    min-width: 0;
+    max-width: 100vw;
+  }
+  .topbar-search #search {
+    width: 100%;
+    max-width: 100vw;
+    min-width: 0;
+  }
+}
+
+/* --- User actions slide-out modern animation --- */
+.user-actions-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 0;
+}
+.user-action-buttons {
+  display: flex;
+  gap: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-24px) scale(0.95);
+  transition: opacity 0.32s cubic-bezier(0.4,0.2,0.2,1), transform 0.32s cubic-bezier(0.4,0.2,0.2,1);
+  will-change: opacity, transform;
+}
+.user-actions-container.open .user-action-buttons {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0) scale(1);
+}
+.user-pill {
+  cursor: pointer;
+  outline: none;
+  transition: box-shadow 0.18s;
+  border-radius: 8px;
+  margin-right: 0.5em;
+}
+.user-pill:focus {
+  box-shadow: 0 0 0 2px var(--acc, #2a7fff);
+}
+@media (max-width: 600px) {
+  .user-pill:focus {
+    box-shadow: none !important;
+  }
+}
+@media (max-width: 600px) {
+  .user-pill {
+    width: 95vw !important;
+    min-width: 0 !important;
+    max-width: 95vw !important;
+    font-size: 1.05em !important;
+    padding: 12px 0 !important;
+    border-radius: 8px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    display: block !important;
+    left: 0;
+    position: relative;
+    text-align: center !important;
+    background: none;
+  }
+}
+@media (max-width: 600px) {
+  .user-actions-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 95vw !important;
+    max-width: 95vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    left: 0;
+    position: relative;
+  }
+  .user-action-buttons {
+    flex-direction: column;
+    gap: 12px;
+    transform: translateY(-10px) scale(0.93);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    width: 95vw !important;
+    max-width: 95vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    left: 0;
+    position: relative;
+    transition: max-height 0.32s cubic-bezier(0.4,0.2,0.2,1), opacity 0.32s cubic-bezier(0.4,0.2,0.2,1), transform 0.32s cubic-bezier(0.4,0.2,0.2,1);
+  }
+  .user-action-buttons .btn,
+  .user-action-buttons .btn-ghost {
+    width: 95vw !important;
+    min-width: 0 !important;
+    max-width: 85vw !important;
+    font-size: 1.05em;
+    padding: 12px 0 !important;
+    border-radius: 8px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .user-actions-container.open .user-action-buttons {
+    transform: translateY(0) scale(1);
+    max-height: 400px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .user-actions-container:not(.open) .user-action-buttons {
+    opacity: 0;
+    pointer-events: none;
+    max-height: 0;
+    transform: translateY(-12px) scale(0.95);
+  }
+}

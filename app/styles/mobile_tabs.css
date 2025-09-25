@@ -1,0 +1,188 @@
+@media (max-width: 600px) {
+  .mobile-slide-wrapper {
+    width: 300vw;
+    max-width: none;
+    min-width: 300vw;
+    display: flex;
+    flex-direction: row;
+    transition: transform 0.38s cubic-bezier(.4,0,.2,1);
+    will-change: transform;
+    position: relative;
+   /* Constrain the sliding wrapper to the viewport height so panes
+     don't expand the document height when one pane grows (feed). */
+   height: 100vh;
+   min-height: 0;
+   overflow: hidden;
+  /* Allow vertical touch gestures to reach children and prevent the
+    wrapper from swallowing them in some mobile browsers. */
+  touch-action: pan-y;
+  }
+  /* Keep the header fixed above slide wrapper so it is visible in all tabs */
+  header[role="banner"] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10005;
+    width: 100vw;
+  }
+  /* Add a small gap above the logo on mobile; increase by changing --mobile-logo-gap */
+  header[role="banner"] .header-logo-anim {
+    margin-top: var(--mobile-logo-gap, 32px) !important;
+  }
+  /* Temporary header clone shown during drag so header doesn't disappear mid-swipe */
+  .mobile-header-clone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10003; /* above panes but below dock/tabbar if needed */
+    pointer-events: none;
+    background: inherit;
+  }
+  .mobile-slide-pane {
+    width: 100vw;
+    min-width: 100vw;
+    max-width: 100vw;
+       overflow: auto;
+   /* Each pane becomes its own scroll context on mobile. This prevents
+     the feed pane from increasing document height and leaking scroll
+     into the compose/profile panes. */
+   height: 100vh;
+   min-height: 0;
+   overflow: auto;
+        display: block;
+        /* Make room for header which stays above the slides */
+        padding-top: var(--mobile-header-height, 64px);
+    background: var(--bg, #181c22);
+    box-sizing: border-box;
+  width: 100%;
+    min-width: 0;
+    max-width: 100vw;
+    /* Ensure each pane is a dedicated scrolling container that fits the
+       viewport minus header and tab bar; this prevents the document from
+       swallowing touch gestures on mobile/emulators. */
+    height: calc(100vh - var(--mobile-header-height, 64px) - 56px);
+    min-height: 0;
+    -webkit-overflow-scrolling: touch;
+   /* Avoid scrolling the document when interacting with the pane
+     and allow smooth touch scrolling inside the pane. */
+   touch-action: pan-y;
+   overscroll-behavior: contain;
+  }
+}
+/* Mobile tab bar for navigation */
+@media (max-width: 600px) {
+  .mobile-tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  /* Keep mobile tab bar above most content but below the dock (dock uses very high z-index) */
+  /* Raise above the dock so the tab bar is interactive on mobile */
+  z-index: 40001;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(20, 24, 32, 0.55);
+    border-top: 1.5px solid #222;
+    box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18), 0 1.5px 8px 0 #222;
+    height: 56px;
+    padding: 0;
+    width: 100vw;
+    max-width: 100vw;
+    user-select: none;
+    backdrop-filter: blur(16px) saturate(180%) contrast(1.1);
+    -webkit-backdrop-filter: blur(16px) saturate(180%) contrast(1.1);
+    border-radius: 18px 18px 0 0;
+    transition: background 0.3s, box-shadow 0.3s;
+   /* Allow the tab bar to receive touch/click events so buttons work
+     reliably in mobile browsers and emulators. Buttons still override
+     pointer-events if needed. */
+   pointer-events: auto;
+  }
+  .mobile-tab-bar button {
+    pointer-events: auto !important;
+  }
+  .mobile-tab-bar button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.18em;
+    flex: 1 1 0;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  /* Duplicate .mobile-tab-bar rule removed for clarity */
+  .mobile-tab-bar .tab-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: calc(100% / 3);
+    background: var(--acc, #6cf);
+    border-radius: 2px 2px 0 0;
+    box-shadow: none;
+    z-index: 1;
+    transition: left 0.28s cubic-bezier(.4,0,.2,1), background 0.18s;
+    pointer-events: none;
+  }
+  .mobile-tab-bar button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.18em;
+    flex: 1 1 0;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+    position: relative;
+    z-index: 2;
+  }
+  .mobile-tab-bar button.active,
+  .mobile-tab-bar button[aria-selected="true"] {
+    color: var(--acc, #6cf);
+    font-weight: 500;
+    background: none;
+  }
+  .mobile-tab-bar button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #6cf2;
+    z-index: 3;
+  }
+  .mobile-tab-bar button {
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+  }
+  .mobile-tab-bar .tab-label {
+    font-size: 0.82em;
+    margin-top: 1px;
+    opacity: 0.85;
+  }
+}
+  /* Ensure cooldown/wait messages are not covered by the tab bar */
+  #postCooldown {
+    margin-bottom: 64px !important;
+    /* 56px tab bar + 8px gap */
+  }
+@media (min-width: 601px) {
+  .mobile-tab-bar {
+    display: none !important;
+  }
+}

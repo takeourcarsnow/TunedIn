@@ -1,0 +1,212 @@
+/* Hide mobile tab bar when login view is present */
+.login .mobile-tab-bar,
+body.login-page .mobile-tab-bar {
+  display: none !important;
+}
+/* Hide vertical scrollbar on login page */
+body.login-page, .login {
+  overflow: hidden !important;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+body.login-page::-webkit-scrollbar, .login::-webkit-scrollbar {
+  display: none !important;
+}
+/* Prevent horizontal scrollbars on login/register page elements */
+.login .btn,
+.login button,
+.login .field,
+.login input,
+.login form,
+.login .auth-shell {
+  overflow-x: visible !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+
+/* Hide scrollbars for login page elements (cross-browser) */
+.login .btn,
+.login button,
+.login .field,
+.login input {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.login .btn::-webkit-scrollbar,
+.login button::-webkit-scrollbar,
+.login .field::-webkit-scrollbar,
+.login input::-webkit-scrollbar {
+  display: none !important;
+}
+/* Header logo animation: fade in only after DOM is ready */
+.header-logo-anim {
+  opacity: 0;
+  animation: none;
+}
+body.header-logo-ready .header-logo-anim {
+  animation: logoEntrance 1.1s cubic-bezier(0.4,0.2,0.2,1) 0.1s forwards;
+}
+/* =========================================
+   auth.css
+   - Login/Register page & overrides
+   - Autofill, animations
+   ========================================= */
+
+/* Auth shell + login container */
+.auth-shell {
+  width: 100%;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+  box-sizing: border-box;
+}
+/* Only hide overflow on login page, not globally */
+.login {
+  max-width: 460px;
+  width: 100vw;
+  min-width: 0;
+  margin: 0 auto;
+  padding: 4vh 0 4vh 0;
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+body.login-page .login {
+  overflow: hidden;
+}
+@media (max-width: 600px) {
+  .login {
+    min-height: 100vh;
+    height: 100vh;
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    padding: 1.5vh 0 1.5vh 0;
+    box-sizing: border-box;
+  }
+  body.login-page .login {
+    overflow: hidden;
+  }
+}
+
+/* Title + prompt */
+.login .title {
+  display: block;
+  min-height: calc(1.25em * 2); /* reserve ~2 lines to reduce layout shift */
+  height: auto;
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  box-sizing: border-box;
+  margin-bottom: var(--space-2);
+}
+#loginAnimatedPrompt,
+#loginAnimatedPrompt,
+#registerAnimatedPrompt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 340px;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 0;
+  text-align: center;
+  /* allow wrapping instead of clipping */
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  word-break: break-word;
+  line-height: 1.25;
+  text-wrap: balance;
+  font-family: inherit;
+  font-size: 1.6em;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: color 0.2s;
+  box-sizing: border-box;
+  pointer-events: none;
+  min-height: 3.5em;
+}
+/* Forms */
+.login form {
+  width: 100%;
+  max-width: 340px;
+  box-sizing: border-box;
+}
+.login form.stack {
+  display: flex; flex-direction: column; align-items: stretch;
+  width: 100%;
+  max-width: 340px;
+  box-sizing: border-box;
+  gap: var(--space-2);
+}
+.login form.stack .field,
+.login form.stack .btn {
+  width: 80%;
+  max-width: 170px;
+  min-width: 100px;
+  box-sizing: border-box;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Autofill + field override inside login */
+.login form .field,
+.login form input.field,
+.login form .field:-webkit-autofill,
+.login form .field:-webkit-autofill:focus,
+.login form .field:-webkit-autofill:hover,
+.login form input:-webkit-autofill,
+.login form input:-webkit-autofill:focus,
+.login form input:-webkit-autofill:hover,
+.login form input.field:-webkit-autofill,
+.login form input.field:-webkit-autofill:focus,
+.login form input.field:-webkit-autofill:hover,
+.login form input.field:-internal-autofill-selected {
+  background: transparent !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  color: var(--fg) !important;
+  -webkit-text-fill-color: var(--fg) !important;
+  border-color: var(--line) !important;
+  transition: background-color 0.2s, color 0.2s;
+  text-align: center !important;
+}
+
+/* Subtle page entrance + logo hover */
+.login-fadein {
+  opacity: 0;
+  animation: loginFadeIn 0.7s cubic-bezier(0.4,0.2,0.2,1) forwards;
+}
+@keyframes loginFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+/* Subtle logo entrance animation for all devices */
+/* Subtle logo entrance animation for all devices, with hover always working */
+.login-logo-anim {
+  transition: transform 0.35s cubic-bezier(0.4,0.2,0.2,1), filter 0.35s cubic-bezier(0.4,0.2,0.2,1);
+  animation: logoEntrance 1.1s cubic-bezier(0.4,0.2,0.2,1) 0.1s forwards;
+  will-change: transform, filter;
+}
+.login-logo-anim:hover {
+  transform: scale(1.07) rotate(-2deg);
+  filter: brightness(1.15) drop-shadow(0 2px 8px #0003);
+}
+@keyframes logoEntrance {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

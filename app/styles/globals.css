@@ -1,0 +1,14 @@
+/* Consolidated global CSS for Next.js app layout.
+   This file imports the existing CSS files from the repo root so they
+   remain source-controlled in their current location while Next bundles
+   them from inside the `app` directory. Move or convert these files to
+   CSS Modules later for component scoping if desired.
+*/
+
+@import './base.css';
+@import './layout.css';
+@import './dock.css';
+@import './components.css';
+@import './profile_tab_fix.css';
+@import './mobile_tabs.css';
+@import './auth.css';

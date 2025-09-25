@@ -1,0 +1,17 @@
+/* Topbar, toolbar, and notice */
+.topbar { display: flex; align-items: center; gap: 8px; justify-content: space-between; margin-bottom: 8px; }
+.notice { padding: 6px 8px; border: 1px dashed var(--line); border-radius: 4px; background: #0f1217; }
+.warn { color: var(--warn); }
+
+/* Desktop toolbar layout */
+@media (min-width: 601px) {
+  .topbar .toolbar {
+    flex-direction: row !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+  }
+  .topbar .toolbar > * { margin: 0 6px 0 0; text-align: left; }
+  .topbar .toolbar input.field { margin: 0; width: 240px; max-width: 320px; }
+}

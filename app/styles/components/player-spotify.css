@@ -1,0 +1,261 @@
+/* Compact audio player style for user uploads */
+/* Fix right-side rounding for native audio player */
+.player.audio-only {
+  min-height: unset !important;
+  height: auto !important;
+  padding: 8px 10px 4px 10px !important;
+  margin-bottom: 0 !important;
+  background: rgba(30,34,44,0.85) !important;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+  border-radius: 14px !important;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible !important;
+}
+.player.audio-only .audio {
+  width: 100%;
+  min-width: 0;
+  border-radius: 12px !important;
+  background: #232733;
+  box-shadow: none;
+  margin: 0;
+  outline: none;
+  overflow: visible !important;
+  padding-right: 45px !important;
+}
+@media (max-width: 600px) {
+  .player.audio-only {
+    min-height: unset !important;
+    height: auto !important;
+    padding: 6px 6px 2px 6px !important;
+    margin-bottom: 0 !important;
+    border-radius: 14px !important;
+    overflow: visible !important;
+  }
+  .player.audio-only .audio {
+    width: 100%;
+    min-width: 0;
+    border-radius: 12px !important;
+    margin: 0;
+    overflow: visible !important;
+    padding-right: 2px;
+  }
+}
+/* Media/player and Spotify notes */
+.player {
+  margin-top: 6px;
+  display: none;
+  background: rgba(20, 24, 32, 0.55);
+  padding: 6px;
+  border: 1.5px solid #222;
+  border-radius: 14px;
+  /* Allow embedded players (iframes) to be fully visible instead of being clipped
+    by the container's padding; this prevents YouTube/Spotify controls from
+    being cut off on the right. */
+  overflow: visible;
+  position: relative;
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18), 0 1.5px 8px 0 #222;
+  backdrop-filter: blur(16px) saturate(180%) contrast(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(180%) contrast(1.1);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.player.active { display: block; }
+iframe { border: 0; }
+iframe[loading=lazy] { contain: content; }
+.yt { width: 100%; aspect-ratio: 16/9; }
+.player iframe { display: block; border-radius: inherit; max-width: 100%; }
+.player-portal {
+  border-radius: 14px;
+  overflow: hidden;
+  position: absolute;
+  pointer-events: auto;
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.18), 0 1.5px 8px 0 #222;
+  background: rgba(20, 24, 32, 0.55);
+  border: 1.5px solid #222;
+}
+.player-portal iframe { width: 100% !important; height: 100% !important; display: block; border-radius: inherit; }
+.sp { width: 100%; height: 152px; display: block; min-height: 120px; }
+.player .sp { display: block !important; height: 152px !important; min-height: 120px !important; }
+.bc iframe { width: 100% !important; }
+.audio { width: 100%; }
+
+/* Spotify note styling used by providers.js markup */
+.spotify-note {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.spotify-note-logo {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  margin-top: 0;
+}
+.spotify-note-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.spotify-note-text {
+  overflow-wrap: anywhere;
+}
+.spotify-note-actions .spotify-open {
+  display: inline-block;
+}
+@media (max-width: 600px) {
+  .spotify-note {
+    flex-direction: column;
+    align-items: center;
+  }
+  .spotify-note-actions .spotify-open {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .spotify-note-body { width: 100%; }
+  .spotify-note-text { text-align: center; }
+}
+
+@media (max-width: 600px) {
+  .player {
+    padding-bottom: 38px;
+  min-height: 160px !important;
+    pointer-events: auto !important;
+  }
+  .yt {
+  min-height: 140px !important;
+  padding-bottom: 0px !important;
+  aspect-ratio: unset !important;
+  height: 0px !important; /* Fixed comment syntax */
+    box-sizing: border-box;
+  }
+  .player iframe.yt {
+  min-height: 220px !important;
+  height: 540px !important;
+    padding-bottom: 38px !important;
+    aspect-ratio: unset !important;
+    box-sizing: border-box;
+  }
+} /* Ensure proper closing of @media block */
+
+@media (max-width: 600px) {
+  .yt {
+    aspect-ratio: 16/9 !important;
+    height: auto !important;
+    min-height: unset !important;
+    padding-bottom: unset !important;
+  }
+  .player iframe.yt {
+    aspect-ratio: 16/9 !important;
+    height: auto !important;
+    min-height: unset !important;
+    padding-bottom: unset !important;
+  }
+}
+
+/* Desktop: make YouTube player a bit smaller */
+@media (min-width: 601px) {
+  /* Override inline min-height from providers.js and keep responsive aspect ratio */
+  .player iframe.yt,
+  .yt {
+    min-height: 280px !important;
+    max-height: 480px;
+    height: auto !important;
+    aspect-ratio: 16/9;
+  }
+  /* Slightly reduce padding on the player container for a tighter look */
+  .player { padding: 4px; }
+}
+
+  /* Fix: ensure iframe/embed sizing respects the player's padding so it
+     doesn't overflow and get cut off on the right (mobile & desktop).
+     Adding border-box to the player makes 100% width children fit inside
+     the padded container. */
+  .player {
+    box-sizing: border-box;
+  }
+  .player iframe,
+  .player .sp,
+  .player iframe.yt,
+  .player iframe.sc,
+  .player iframe.bc {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: block;
+  }
+
+  /* Safety: prevent outer layout elements from causing horizontal scroll
+     which can indirectly push embeds out of view on small screens. */
+  .wrap, .feed, .grid, .post, .box {
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  /* Stronger containment for posts: ensure flex children can shrink and
+     that players/iframes never overflow the post card. Use specific
+     selectors and !important where needed to override inline styles. */
+  .post, .box {
+    min-width: 0 !important;
+  }
+  .post .player, .post .player * {
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  .post .player iframe,
+  .post .player .sp,
+  .post .player iframe.yt,
+  .post .player iframe.sc,
+  .post .player iframe.bc {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    display: block !important;
+  }
+
+  /* Compensate for the .player padding so the iframe's visible area reaches
+     the container edges instead of being offset and cut off. Mobile uses
+     6px padding, desktop uses 4px — adjust accordingly. Uses !important to
+     override inline styles set by providers.js. */
+  .post .player > iframe,
+  .post .player > .sp {
+    /* default (mobile) padding compensation */
+    width: calc(100% + 12px) !important;
+    margin-left: -6px !important;
+    margin-right: -6px !important;
+  }
+  @media (min-width: 601px) {
+    .post .player > iframe,
+    .post .player > .sp {
+      /* desktop: .player padding is 4px */
+      width: calc(100% + 8px) !important;
+      margin-left: -4px !important;
+      margin-right: -4px !important;
+    }
+  }
+
+  /* Mobile override: base.css sets overflow-x:hidden !important on many
+     containers to prevent horizontal scroll. That inadvertently clips
+     embedded iframes inside the player. Use a specific selector and
+     !important to allow the player to show overflow so iframe controls
+     are not cut off. */
+  @media (max-width: 600px) {
+    .wrap > .post .player,
+    .wrap .post .player,
+    .post .player {
+      overflow: visible !important;
+      overflow-x: visible !important;
+      overflow-y: visible !important;
+      z-index: 12001 !important; /* above many UI layers but below dock */
+      position: relative !important;
+    }
+    .post .player iframe,
+    .post .player .sp {
+      position: relative !important;
+      z-index: 12002 !important;
+      left: 0 !important;
+    }
+  }
