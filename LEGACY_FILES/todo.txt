@@ -1,0 +1,10 @@
+Generate Spotify playlists from posts, tags, or usernames
+
+fix small typewriter breaking to new line mid-word
+make sure about me section slides back nicer, it kind of snaps back instantly now
+
+when playing posts one by one from post play it should not say queue number
+
+add small like 10px padding so content borders dont touch display sides on phone
+
+
